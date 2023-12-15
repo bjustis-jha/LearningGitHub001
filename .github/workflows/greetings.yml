@@ -4,6 +4,8 @@ on: [pull_request_target, issues]
 
 jobs:
   greeting:
+    #Configures the job to run on the latest version of an Ubuntu Linux runner.
+    #This means that the job will execute on a fresh virtual machine hosted by GitHub.
     runs-on: ubuntu-latest
     permissions:
       issues: write
