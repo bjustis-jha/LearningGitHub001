@@ -5,6 +5,8 @@ on:
   workflow_dispatch
 jobs:
   run-job-on-demand-example:
+    #Configures the job to run on the latest version of an Ubuntu Linux runner.
+    #This means that the job will execute on a fresh virtual machine hosted by GitHub
     runs-on: ubuntu-latest
     steps:    
       - uses: actions/checkout@v3
