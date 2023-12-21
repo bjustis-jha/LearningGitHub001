@@ -31,6 +31,8 @@ jobs:
       - name: execute Python script 
         run: python Plot_example.py
 
+      #FROM: https://docs.github.com/en/actions/learn-github-actions/essential-features-of-github-actions
+      #you can create a file and then upload it as an artifact
       - shell: bash
         run: |
           expr 1 + 1 > output.log
@@ -39,7 +41,10 @@ jobs:
         with:
           name: output-log-file
           path: output.log
-
+      
+      #To download an artifact from a separate workflow run
+      #To download an artifact from the same workflow run, your download job should specify "needs: upload-job-name"
+      #   so it doesn't start until the upload job finishes
       - name: Download a single artifact
         uses: actions/download-artifact@v3
         with:
