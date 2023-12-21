@@ -4,20 +4,43 @@ name: Run Python Script
 on:
   workflow_dispatch
 jobs:
-  run-job-on-demand-example:
+  example-job:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
+    steps:
+    #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
+    #Having done this, you can use the run keyword to run the script on the runner.
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
+      - name: Run a script
+        run: ./Plot_example.py
+      - name: Run another script
+        run: ./Plot_example.py
+
+
+
+
+#jobs:
+#  run-job-on-demand-example:
     #Configures the job to run on the latest version of an Ubuntu Linux runner.
     #This means that the job will execute on a fresh virtual machine hosted by GitHub
-    runs-on: ubuntu-latest
-    steps:    
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.10"
-      - uses: jannekem/run-python-script-action@v1.6
-        with:
+#    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        working-directory: ./scripts
+#    steps:    
+#      - name: Check out the repository to the runner
+#        uses: actions/checkout@v4
+      #- name: Set up Python 3.10
+      #  uses: actions/setup-python@v3
+      #  with:
+      #    python-version: "3.10"
+      #- uses: jannekem/run-python-script-action@v1.6
+      #  with:
           # Python script
-          script: ./Plot_example.py
+      #    script: ./Plot_example.py
           # Fail step if the return code from running the script is non-zero
           #fail-on-error: # optional, default is true
           # Include utility functions
