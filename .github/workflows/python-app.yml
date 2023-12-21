@@ -1,24 +1,41 @@
-name: Run Python Script
-# You may pin to the exact commit or the version.
-# uses: jannekem/run-python-script-action@4a15c914fc5c168c5fd388e3ded9919af522c175
+name: Scheduled Mend Overdue Scans
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  schedule:
+    #- cron: '0 8 1,15 * * *'  # This will run the workflow at 3 AM CT DST on the 1st and 15th day of each month.
+    - cron:  '10 15,16 * * *' #This triggers the workflow every day at 5:30 and 17:30 UTC:
 jobs:
-  example-job:
+  build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./scripts
     steps:
-    #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
-    #Having done this, you can use the run keyword to run the script on the runner.
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4  
-      - name: Run a script
-        run: ./Plot_example.py
-      - name: Run another script
-        run: ./Plot_example.py
+      #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
+      #Having done this, you can use the run keyword to run the script on the runner.
+      - name: heck out the repository to the runner
+        uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      #- name: Install dependencies
+      #  run: |
+      #    python -m pip install --upgrade pip
+      #    pip install -r requirements.txt
+
+      - name: execute py script # run main.py
+        #env:
+        #  ORGTOKEN: ${{ secrets.ORGTOKEN }}
+        #  USERKEY: ${{ secrets.USERKEY }}
+        run: python Plot_example.py
+
+      #- name: Commit and push changes
+      #  run: |
+      #    git config --global user.name "LoAnBest"
+      #    git config --global user.email "lobest@jackhenry.com"
+      #    git add mend_overdue_scans_results  # Replace with the path to the folder containing the created file
+      #    git commit -m "Added updated Mend overdue scans file"
+      #    git push
 
 
 
