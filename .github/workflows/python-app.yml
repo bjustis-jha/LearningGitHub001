@@ -10,7 +10,7 @@ jobs:
     steps:
       #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
       #Having done this, you can use the run keyword to run the script on the runner.
-      - name: heck out the repository to the runner
+      - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -21,86 +21,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          
+          #requirements.txt is a file in the repository
+          #used 'pip freeze' in a command prompt to see all of the modules installed on my laptop.  
+          #    I then copied the information from the results of the 'pip freeze' command for the modules imported into
+          #    the python script I was running into the requirement.txt file.
           pip install -r requirements.txt
 
-      - name: execute py script # run main.py
-        #env:
-        #  ORGTOKEN: ${{ secrets.ORGTOKEN }}
-        #  USERKEY: ${{ secrets.USERKEY }}
+      - name: execute Python script 
         run: python Plot_example.py
-
-      #- name: Commit and push changes
-      #  run: |
-      #    git config --global user.name "LoAnBest"
-      #    git config --global user.email "lobest@jackhenry.com"
-      #    git add mend_overdue_scans_results  # Replace with the path to the folder containing the created file
-      #    git commit -m "Added updated Mend overdue scans file"
-      #    git push
-
-
-
-#jobs:
-#  run-job-on-demand-example:
-    #Configures the job to run on the latest version of an Ubuntu Linux runner.
-    #This means that the job will execute on a fresh virtual machine hosted by GitHub
-#    runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        working-directory: ./scripts
-#    steps:    
-#      - name: Check out the repository to the runner
-#        uses: actions/checkout@v4
-      #- name: Set up Python 3.10
-      #  uses: actions/setup-python@v3
-      #  with:
-      #    python-version: "3.10"
-      #- uses: jannekem/run-python-script-action@v1.6
-      #  with:
-          # Python script
-      #    script: ./Plot_example.py
-          # Fail step if the return code from running the script is non-zero
-          #fail-on-error: # optional, default is true
-          # Include utility functions
-          #util: # optional, default is true
-          
-
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-#name: Python application
-
-#on:
- # workflow_dispatch
-  #push:
-  #  branches: [ "main" ]
-  #pull_request:
-  #  branches: [ "main" ]
-
-#permissions:
-#  contents: read
-
-#jobs:
-#  build:
-
- #   runs-on: ubuntu-latest
-
-#    steps:
-#    - uses: actions/checkout@v3
-#    - name: Set up Python 3.10
-#      uses: actions/setup-python@v3
-#      with:
-#        python-version: "3.10"
-#    - name: Install dependencies
-#      run: |
-#        python -m pip install --upgrade pip
-#        pip install flake8 pytest
-#        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-#    - name: Lint with flake8
-#      run: |
-#        # stop the build if there are Python syntax errors or undefined names
-#        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-#        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-#        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-#    - name: Test with pytest
-#      run: |
-#        pytest
