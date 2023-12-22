@@ -56,6 +56,7 @@ jobs:
           name: output-log-file
 
   greeting_job:
+    needs: build
     runs-on: ubuntu-latest
     env:
       Greeting: Hello
