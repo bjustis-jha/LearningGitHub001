@@ -1,0 +1,51 @@
+name: Test Running a Python Script from a GitHub Action
+on:
+  workflow_dispatch:
+  schedule:
+    #- cron: '0 8 1,15 * * *'  # This will run the workflow at 3 AM CT DST on the 1st and 15th day of each month.
+    - cron:  '10 15,16 * * *' #This triggers the workflow every day at 5:30 and 17:30 UTC:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
+      #Having done this, you can use the run keyword to run the script on the runner.
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          
+          #requirements.txt is a file in the repository
+          #used 'pip freeze' in a command prompt to see all of the modules installed on my laptop.  
+          #    I then copied the information from the results of the 'pip freeze' command for the modules imported into
+          #    the python script I was running into the requirement.txt file.
+          pip install -r requirements.txt
+
+      - name: execute Python script 
+        run: python Plot_example.py
+
+      #FROM: https://docs.github.com/en/actions/learn-github-actions/essential-features-of-github-actions
+      #you can create a file and then upload it as an artifact
+      - shell: bash
+        run: |
+          expr 1 + 1 > output.log
+      - name: Upload output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-log-file
+          path: output.log
+      
+      #To download an artifact from a separate workflow run
+      #To download an artifact from the same workflow run, your download job should specify "needs: upload-job-name"
+      #   so it doesn't start until the upload job finishes
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: output-log-file
