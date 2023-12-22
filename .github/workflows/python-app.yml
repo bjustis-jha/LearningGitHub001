@@ -5,7 +5,7 @@ on:
     #- cron: '0 8 1,15 * * *'  # This will run the workflow at 3 AM CT DST on the 1st and 15th day of each month.
     - cron:  '10 15,16 * * *' #This triggers the workflow every day at 5:30 and 17:30 UTC:
 env:
-  testString: ${{ 'Hello world' }}
+  testStringVariable: ${{ 'Hello world' }}
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: execute Python script 
-        if: contains(testVariable, 'llx')
+        if: contains(testStringVariable, 'llx')
         run: python TEST_environment_variables.py
 
       #FROM: https://docs.github.com/en/actions/learn-github-actions/essential-features-of-github-actions
