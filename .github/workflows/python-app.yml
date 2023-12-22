@@ -9,7 +9,7 @@ env:
   DAY_OF_WEEK: Monday
 
 jobs:
-  build:
+  Run_Python_Script:
     runs-on: ubuntu-latest
     steps:
       #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
@@ -47,6 +47,12 @@ jobs:
           name: output-log-file
           path: output.log
       
+  greeting_job:
+    needs: Run_Python_Script
+    runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
+    steps:
       #To download an artifact from a separate workflow run
       #To download an artifact from the same workflow run, your download job should specify "needs: upload-job-name"
       #   so it doesn't start until the upload job finishes
@@ -54,13 +60,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: output-log-file
-
-  greeting_job:
-    needs: build
-    runs-on: ubuntu-latest
-    env:
-      Greeting: Hello
-    steps:
+      
       - name: "Say Hello Mona it's Monday"
         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
         env:
