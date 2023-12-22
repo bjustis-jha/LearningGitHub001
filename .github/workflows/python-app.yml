@@ -80,6 +80,7 @@ jobs:
 
   #print the contents of contexts to the log for debugging
   dump_contexts_to_log:
+    needs: greeting_job
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
