@@ -74,7 +74,11 @@ jobs:
           name: output-log-file
       
       - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        #Because runner environment variable interpolation is done after a workflow job is sent to a runner machine,
+           #you must use the appropriate syntax for the shell that's used on the runner. 
+        #By default, Linux runners use the bash shell, so you must use the syntax $NAME.
+        #By default, Windows runners use PowerShell, so you would use the syntax $env:NAME
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!" #three custom variables being used as runner environment variables 
         env:
           First_Name: Mona
 
@@ -83,6 +87,8 @@ jobs:
     needs: greeting_job
     runs-on: ubuntu-latest
     steps:
+      - name: Dump env context
+        run: env
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
