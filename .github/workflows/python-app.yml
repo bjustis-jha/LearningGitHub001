@@ -15,7 +15,8 @@ env:
 
 jobs:
   Run_Python_Script:
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest  #Linux OS
+    runs-on: windows-latest  #Windows OS
     steps:
       - run: echo "The value of GitHub.ref is- $GITHUB_REF" 
       
