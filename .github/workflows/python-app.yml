@@ -17,6 +17,8 @@ jobs:
   Run_Python_Script:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "The value of GitHub.ref is- $GITHUB_REF" 
+      
       #To use a workflow to run a script stored in your repository you must first check out the repository to the runner.
       #Having done this, you can use the run keyword to run the script on the runner.
       - name: Check out the repository to the runner
