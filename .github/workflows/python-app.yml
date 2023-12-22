@@ -113,7 +113,20 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
- 
+
+  #detecting the OS that the job running is using
+  if-Windows-else:
+    runs-on: macos-latest
+    steps:
+      - name: condition 1
+        if: runner.os == 'Windows'
+        run: echo "The operating system on the runner is $env:RUNNER_OS."
+      - name: condition 2
+        if: runner.os != 'Windows'
+        run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
+
+ #this does not run because the 'environmental' variables are not defined in GitHub
+ #this are 'environmental' variables.  See: https://docs.github.com/en/actions/learn-github-actions/variables#defining-configuration-variables-for-multiple-workflows   
   display-variables:
     name: ${{ vars.JOB_NAME }}
     # You can use configuration variables with the `vars` context for dynamic jobs
