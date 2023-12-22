@@ -32,7 +32,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: execute Python script 
-        if: contains(testStringVariable, 'llx')
+        if: contains($testStringVariable, 'llx')
         run: python TEST_environment_variables.py
 
       #FROM: https://docs.github.com/en/actions/learn-github-actions/essential-features-of-github-actions
