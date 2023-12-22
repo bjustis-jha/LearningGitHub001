@@ -29,7 +29,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: execute Python script 
-        run: python Plot_example.py
+        run: python TEST environment variables.py
 
       #FROM: https://docs.github.com/en/actions/learn-github-actions/essential-features-of-github-actions
       #you can create a file and then upload it as an artifact
