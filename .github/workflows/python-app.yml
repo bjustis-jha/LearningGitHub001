@@ -18,8 +18,8 @@ env:
 
 jobs:
   Run_Python_Script:
-    #runs-on: ubuntu-latest  #Linux OS
-    runs-on: windows-latest  #Windows OS
+    runs-on: ubuntu-latest  #Linux OS
+    #runs-on: windows-latest  #Windows OS
     steps:
       - run: echo "The value of GitHub.ref is- $GITHUB_REF" 
       
@@ -109,7 +109,7 @@ jobs:
   display-variables:
     name: ${{ vars.JOB_NAME }}
     # You can use configuration variables with the `vars` context for dynamic jobs
-    if: ${{ vars.USE_VARIABLES == 'false' }}
+    if: ${{ vars.USE_VARIABLES == 'true' }}
     runs-on: ${{ vars.RUNNER }}
     environment: ${{ vars.ENVIRONMENT_STAGE }}
     steps:
